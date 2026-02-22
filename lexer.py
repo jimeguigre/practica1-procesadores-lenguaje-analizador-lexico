@@ -149,18 +149,3 @@ def t_error(token): #caracteres no reconocidos
 def find_column(input_data, token):
     line_start = input_data.rfind('\n', 0, token.lexpos) + 1
     return (token.lexpos - line_start) 
-
-
-
-# construir el lexer
-lexer = lex.lex()
-
-# cargar el fichero y generar el archivo de salida
-if len(sys.argv) > 1:
-    with open(sys.argv[1], 'r') as f:
-        data = f.read()
-        lexer.input(data)
-        for tok in lexer:
-            col_start = find_column(data, tok)
-            col_end = col_start + len(str(tok.value))
-            print(f"{{ {tok.type}, {tok.value}, {tok.lineno}, {col_start}, {col_end} }}")
