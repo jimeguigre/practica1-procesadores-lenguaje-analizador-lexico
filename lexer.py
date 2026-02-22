@@ -124,9 +124,9 @@ def t_OCT_VALUE(token):
     return token
 
 def t_FLOAT_VALUE(token):
-    r'(0|([1-9][0-9]*))?\.(0|([1-9][0-9]*))'
-    token.value = float(token.value)
-    return token
+   r'((0|[1-9][0-9]*)\.[0-9]+([eE][-+]?[0-9]+)? | (0|[1-9][0-9]*)[eE][-+]?[0-9]+)'
+   token.value = float(token.value)
+   return token
 
 def t_INT_VALUE(token):
     r'[1-9][0-9]*|0'

@@ -3,3 +3,7 @@ int octal = 0757;
 int hexadecimal = 0x1EF;
 int a = 28; 
 float b = 24.9; 
+char caracter = '!';
+boolean verdadero = true;
+float otro = 2.03;
+float notacion = 2.54e-4;
