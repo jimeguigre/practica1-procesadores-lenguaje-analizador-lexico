@@ -27,7 +27,7 @@ with open(input_file, 'r') as f_in, open(output_file, 'w') as f_out:
         else:
             length = len(str(tok.value))
             
-            col_end = col_start + length
+        col_end = col_start + length
         
         # cálculo fin de columna 
         #val_str = tok.lexer.lexmatch.group(0) # usa la longitud del texto original, no el valor convertido
