@@ -116,24 +116,28 @@ def t_ID(token):
 
 def t_HEX_VALUE(token):
     r'0x[0-9A-F]+'
+    token.length = len(token.value)
     # conversor a decimal
     token.value = int(token.value, 16)
     return token
 
 def t_BIN_VALUE(token):
     r'0b[01]+'
+    token.length = len(token.value)
     # conversor a decimal
     token.value = int(token.value, 2)
     return token
 
 def t_OCT_VALUE(token):
     r'0[0-7]+'
+    token.length = len(token.value)
     # conversor a decimal
     token.value = int(token.value, 8)
     return token
 
 def t_FLOAT_VALUE(token):
    r'((0|[1-9][0-9]*)\.[0-9]+([eE][-+]?[0-9]+)?|(0|[1-9][0-9]*)[eE][-+]?[0-9]+)'
+   token.length = len(token.value)
    token.value = float(token.value)
    return token
 
