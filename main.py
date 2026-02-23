@@ -22,11 +22,16 @@ if len(sys.argv) > 1:
             # cálculo de columnas llamando a find_column
             col_start = find_column(data, tok)
            
-            # cálculo fin de columna
-            val_str = str(tok.value)
-            #val_str = lexer.lexmatch.group(0) # usa la longitud del texto original, no el valor convertido
-            # PERO ESE NO DA COMO EN EL ENUNCIADO???
-            col_end = col_start + len(val_str)
+           # cálculo fin de columna
+            if hasattr(tok, 'length'):
+                length = tok.length
+            else:
+                length = len(str(tok.value))
+                
+            col_end = col_start + length
+            
+            #val_str = str(tok.value)
+            #col_end = col_start + len(val_str)
            
             # formato de salida: { TIPO, VALOR, LÍNEA, COL-INI, COL-FIN }
             linea_token = f"{{ {tok.type}, {tok.value}, {tok.lineno}, {col_start}, {col_end} }}\n"

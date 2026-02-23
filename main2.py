@@ -8,7 +8,7 @@ import lexer as scanner
 lexer = lex.lex(module=scanner)
 
 #if len(sys.argv) > 1:
-input_file = "test_complejo.lava"
+input_file = "input2"
 
 # creacción del archivo de salida
 base_name, _ = os.path.splitext(input_file)
@@ -29,14 +29,6 @@ with open(input_file, 'r') as f_in, open(output_file, 'w') as f_out:
             
         col_end = col_start + length
         
-        # cálculo fin de columna 
-        #val_str = tok.lexer.lexmatch.group(0) # usa la longitud del texto original, no el valor convertido
-        #col_end = col_start + len(val_str)
-        
-        # formato de salida: { TIPO, VALOR, LÍNEA, COL-INI, COL-FIN }
-        #linea_token = f"{{ {tok.type}, {tok.value}, {tok.lineno}, {col_start}, {col_end} }}\n"
-        
-        # escribir en el archivo .token 
         # formato de salida: { TIPO, VALOR, LÍNEA, COL-INI, COL-FIN }
         linea_token = f"{{ {tok.type}, {tok.value}, {tok.lineno}, {col_start}, {col_end} }}\n"
         f_out.write(linea_token)
