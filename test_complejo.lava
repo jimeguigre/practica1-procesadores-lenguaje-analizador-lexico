@@ -1,0 +1,10 @@
+record Point(int x, int y);
+
+// Función de prueba
+void move(Point p) {
+    if (p.x >= 10 && p.y < 5) {
+        p.x = p.x + 1;
+    } else {
+        return;
+    }
+}

@@ -1,0 +1,11 @@
+// Prueba de enteros y bases
+int d = 495;
+int b = 0b111101111;
+int o = 0757;
+int h = 0x1EF;
+
+/* Prueba de reales
+   con notación científica */
+float f1 = 100.001;
+float f2 = 9.87e-2;
+float f3 = 5e5;
