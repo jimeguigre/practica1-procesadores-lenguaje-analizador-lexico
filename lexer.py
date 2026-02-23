@@ -46,12 +46,15 @@ tokens = [
     'MAYOR',
     'ASIGNACION', 
     'MUL',
+    'DIV',
     'RESTA',
     'SUMA', 
     'AND',
     'OR',
     'NOT',
     'COMMENT',
+    'PUNTO',
+    'COMA',
 ] + list(reserved.values())
 
 # declaración de formatos
@@ -89,8 +92,14 @@ t_AND = r'&&'
 
 t_OR = r'\|\|'
 
+t_DIV = r'/'
+
+t_PUNTO = r'\.'
+
+t_COMA = r','
+
 def t_COMMENT(t):
-    r'//.* | /\*(.|\n)*?\*/'
+    r'//.*|/\*(.|\n)*?\*/'
     t.lexer.lineno += t.value.count('\n')
     pass
 
@@ -124,7 +133,7 @@ def t_OCT_VALUE(token):
     return token
 
 def t_FLOAT_VALUE(token):
-   r'((0|[1-9][0-9]*)\.[0-9]+([eE][-+]?[0-9]+)? | (0|[1-9][0-9]*)[eE][-+]?[0-9]+)'
+   r'((0|[1-9][0-9]*)\.[0-9]+([eE][-+]?[0-9]+)?|(0|[1-9][0-9]*)[eE][-+]?[0-9]+)'
    token.value = float(token.value)
    return token
 

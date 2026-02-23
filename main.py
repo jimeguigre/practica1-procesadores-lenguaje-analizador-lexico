@@ -19,11 +19,11 @@ if len(sys.argv) > 1:
         lexer.input(data)
         
         for tok in lexer:
-            # cálculo de columnsa llamando a find_column
+            # cálculo de columnas llamando a find_column
             col_start = find_column(data, tok)
             
             # cálculo fin de columna 
-            val_str = str(tok.value) # usa longitud del token
+            val_str = tok.lexer.lexmatch.group(0) # usa la longitud del texto original, no el valor convertido
             col_end = col_start + len(val_str)
             
             # formato de salida: { TIPO, VALOR, LÍNEA, COL-INI, COL-FIN }
