@@ -8,7 +8,7 @@ import lexer as scanner
 lexer = lex.lex(module=scanner)
 
 #if len(sys.argv) > 1:
-input_file = "test_numeros.lava"
+input_file = "test_complejo.lava"
 
 # creacción del archivo de salida
 base_name, _ = os.path.splitext(input_file)
