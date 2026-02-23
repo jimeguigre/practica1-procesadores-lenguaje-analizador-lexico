@@ -135,6 +135,12 @@ def t_OCT_VALUE(token):
     token.value = int(token.value, 8)
     return token
 
+# manejo de números seguidos por letras (IDs inválidos)
+def t_INVALID_ID(t):
+    r'[0-9]+[a-zA-Z_][a-zA-Z0-9_]*'
+    print(f"Error léxico: Identificador no válido '{t.value}' en la línea {t.lineno}")
+    #t.lexer.skip(len(t.value))    
+
 def t_FLOAT_VALUE(token):
    r'((0|[1-9][0-9]*)\.[0-9]+([eE][-+]?[0-9]+)?|(0|[1-9][0-9]*)[eE][-+]?[0-9]+)'
    token.length = len(token.value)
