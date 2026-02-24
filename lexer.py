@@ -1,10 +1,4 @@
-# reconocer los elementos del lenguaje a nivel léxico
-
-# importar PLY lex
-import ply.lex as lex
-
-# cargar fichero con los datos de ejemplo
-import sys
+# Este archivo contiene un lexer para reconocer los elementos del lenguaje a nivel léxico
 
 # definición de palabras reservadas
 reserved = {
@@ -103,11 +97,9 @@ def t_COMMENT(t):
     t.lexer.lineno += t.value.count('\n')
     pass
 
-def t_CHAR_VALUE(token): #solo 1 caracter 
+def t_CHAR_VALUE(token): #solo 1 caracter (no strings)
     r'\'.\''
     return token
-
-# strings también? r='\'([a-zA-Z0-9_]*(\s)?)\''
 
 def t_ID(token):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
@@ -133,14 +125,7 @@ def t_OCT_VALUE(token):
     token.length = len(token.value)
     # conversor a decimal
     token.value = int(token.value, 8)
-    return token
-
-# manejo de números seguidos por letras (IDs inválidos)
-#def t_INVALID_ID(t):
-    #r'[0-9]+[a-zA-Z_][a-zA-Z0-9_]*'
-    # (menos numero + e + numero o numero + e + - + numero )
-    #print(f"Error léxico: Identificador no válido '{t.value}' en la línea {t.lineno}")
-    #t.lexer.skip(len(t.value))    
+    return token   
 
 def t_FLOAT_VALUE(token):
    r'((0|[1-9][0-9]*)\.[0-9]+([eE][-+]?[0-9]+)?|(0|[1-9][0-9]*)[eE][-+]?[0-9]+)'
@@ -154,17 +139,18 @@ def t_INT_VALUE(token):
     return token
 
 
-# caracteres especiales
+# caracter de nueva línea
 def t_NEWLINE(token):
     r'\n+'
     token.lexer.lineno += token.value.count('\n')
 
-t_ignore = ' \t' # caracteres a ignorar de manera automática
+# caracteres a ignorar de manera automática
+t_ignore = ' \t' 
 
-def t_error(token): #caracteres no reconocidos
+#caracteres no reconocidos
+def t_error(token): 
     print(f'illegal character at {token.lineno}, {token.lexpos}')
     token.lexer.skip(1) # recuperarse del error (se salta el caracter del error)
-
 
 # contador de columnas 
 def find_column(input_data, token):
