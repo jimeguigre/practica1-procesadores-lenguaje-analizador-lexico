@@ -136,9 +136,10 @@ def t_OCT_VALUE(token):
     return token
 
 # manejo de números seguidos por letras (IDs inválidos)
-def t_INVALID_ID(t):
-    r'[0-9]+[a-zA-Z_][a-zA-Z0-9_]*'
-    print(f"Error léxico: Identificador no válido '{t.value}' en la línea {t.lineno}")
+#def t_INVALID_ID(t):
+    #r'[0-9]+[a-zA-Z_][a-zA-Z0-9_]*'
+    # (menos numero + e + numero o numero + e + - + numero )
+    #print(f"Error léxico: Identificador no válido '{t.value}' en la línea {t.lineno}")
     #t.lexer.skip(len(t.value))    
 
 def t_FLOAT_VALUE(token):
@@ -165,6 +166,7 @@ def t_error(token): #caracteres no reconocidos
     token.lexer.skip(1) # recuperarse del error (se salta el caracter del error)
 
 
+# contador de columnas 
 def find_column(input_data, token):
     line_start = input_data.rfind('\n', 0, token.lexpos) + 1
     return (token.lexpos - line_start) 
