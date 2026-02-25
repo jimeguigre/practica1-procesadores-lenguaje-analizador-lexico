@@ -1,8 +1,7 @@
 import ply.lex as lex
 import sys
 import os
-from lexer import find_column, tokens
-
+from lexer import find_column
 
 import lexer as scanner
 lexer = lex.lex(module=scanner)

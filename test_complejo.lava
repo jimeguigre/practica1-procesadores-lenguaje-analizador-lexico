@@ -10,3 +10,7 @@ void move(Point p) {
     }
 }
 // comentario de una línea
+
+if (a != 0 || b == 3){
+    break;
+}

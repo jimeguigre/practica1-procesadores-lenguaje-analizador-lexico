@@ -17,6 +17,7 @@ reserved = {
     'print':'PRINT',
     'new':'NEW',
     'record': 'RECORD', 
+    'brak': 'BREAK',
 }
 
 # definición de tokens
@@ -101,11 +102,6 @@ def t_CHAR_VALUE(token): #solo 1 caracter (no strings)
     r'\'.\''
     return token
 
-def t_ID(token):
-    r'[a-zA-Z_][a-zA-Z0-9_]*'
-    token.type = reserved.get(token.value, 'ID')
-    return token
-
 def t_HEX_VALUE(token):
     r'0x[0-9A-F]+'
     token.length = len(token.value)
@@ -138,6 +134,10 @@ def t_INT_VALUE(token):
     token.value = int(token.value)
     return token
 
+def t_ID(token):
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    token.type = reserved.get(token.value, 'ID')
+    return token
 
 # caracter de nueva línea
 def t_NEWLINE(token):

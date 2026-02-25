@@ -9,3 +9,8 @@ int h = 0x1EF;
 float f1 = 100.001;
 float f2 = 9.87e-2;
 float f3 = 5e5;
+
+/* números inválidos*/
+0b 
+0x
+0xG1
