@@ -1,0 +1,16 @@
+char hola = '\n';
+char g = 'd';
+char g = 'ñ';
+char e = 'Ñ';
+
+true
+True  
+FALSE 
+false
+False 
+
+// comentario
+division = 4/5; 
+i == 2; 
+
+int binario = 0b1001
