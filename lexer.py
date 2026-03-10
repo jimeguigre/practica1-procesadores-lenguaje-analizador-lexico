@@ -26,9 +26,6 @@ tokens = [
     'INT_VALUE', 
     'FLOAT_VALUE', 
     'CHAR_VALUE',
-    'BIN_VALUE',
-    'OCT_VALUE',
-    'HEX_VALUE',
     'EQUALS', 
     'PUNTO_COMA', 
     'L_BRACKET',
@@ -160,6 +157,8 @@ def t_COMA(token):
 
 def t_CHAR_VALUE(token): 
     r'\'([^\'\\\n]|\\.)\''
+    token.length = len(token.value)
+    token.value = token.value[1:-1] # se quitan las comillas 
     token.column = find_column(token.lexer.lexdata, token)
     return token
 

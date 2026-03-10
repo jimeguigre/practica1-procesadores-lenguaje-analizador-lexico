@@ -14,3 +14,9 @@ division = 4/5;
 i == 2; 
 
 int binario = 0b1001
+
+
+
+'\r'
+'\0'
+' '
