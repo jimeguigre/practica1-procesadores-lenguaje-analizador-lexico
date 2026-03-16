@@ -81,13 +81,17 @@ def p_statement(p):
 
 # Variables
 def p_var_declaration(p):
-    '''var_declaration : type id_list
-                       | type ID ASIGNACION expression'''
+    '''var_declaration : type id_list'''
     pass
 
 def p_id_list(p):
-    '''id_list : id_list COMA ID
-               | ID'''
+    '''id_list : id_list COMA element_id
+               | element_id'''
+    pass
+
+def p_element_id(p):
+    '''element_id : ID
+                  | ID ASIGNACION expression'''
     pass
 
 def p_assignment(p):

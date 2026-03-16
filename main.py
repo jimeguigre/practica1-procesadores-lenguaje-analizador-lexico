@@ -3,9 +3,9 @@ import os
 import ply.lex as lex
 import ply.yacc as yacc
 import lexer as scanner
-import parser as grammar # Esto importa tu nuevo archivo parser.py
+import parser as grammar 
 
-# --- ESTA ES TU PARTE DE LA PRÁCTICA 1 INTACTA ---
+# Parte 1: lexer 
 def run_lexer(input_file):
     lexer = lex.lex(module=scanner)
     base_name, _ = os.path.splitext(input_file)
@@ -29,7 +29,7 @@ def run_lexer(input_file):
     except FileNotFoundError:
         print(f"Error: El archivo '{input_file}' no existe.")
 
-# --- ESTA ES LA PARTE NUEVA DE LA PRÁCTICA 2 (PARSER) ---
+# Parte 2: parser
 def run_parser(input_file):
     lexer = lex.lex(module=scanner)
     parser = yacc.yacc(module=grammar)
@@ -42,16 +42,16 @@ def run_parser(input_file):
     except FileNotFoundError:
         print(f"Error: El archivo '{input_file}' no existe.")
 
-# --- ESTO DECIDE QUÉ HACER SEGÚN LO QUE ESCRIBA EL PROFESOR EN LA TERMINAL ---
+# lectura del archivo según lo que se escirba en la terminal
 if __name__ == '__main__':
-    # Si el profe escribe: python main.py -token archivo.lava
+    # Para la ejecución del lexer la entrada es: python main.py -token archivo.lava
     if len(sys.argv) == 3 and sys.argv[1] == "-token":
         run_lexer(sys.argv[2])
-    # Si el profe escribe: python main.py archivo.lava
+    # Para la ejecución del parser la entrada es: python main.py archivo.lava
     elif len(sys.argv) == 2:
         run_parser(sys.argv[1])
-    # Si el profe lo escribe mal
+    # en caso de que esté mal escrito
     else:
         print("Uso correcto:")
-        print("  Para análisis sintáctico (Parser): python main.py <fichero.lava>")
-        print("  Para generar tokens (Lexer):       python main.py -token <fichero.lava>")
+        print("Para análisis sintáctico (Parser): python main.py <fichero.lava>")
+        print("Para generar tokens (Lexer): python main.py -token <fichero.lava>")
