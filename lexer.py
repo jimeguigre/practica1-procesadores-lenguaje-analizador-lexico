@@ -44,7 +44,6 @@ tokens = [
     'AND',
     'OR',
     'NOT',
-    'COMMENT',
     'PUNTO',
     'COMA',
 ] + list(reserved.values())

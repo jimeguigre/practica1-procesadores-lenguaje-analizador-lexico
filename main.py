@@ -1,15 +1,15 @@
-import ply.lex as lex
 import sys
 import os
+import ply.lex as lex
+import ply.yacc as yacc
 import lexer as scanner
-lexer = lex.lex(module=scanner)
+import parser as grammar # Esto importa tu nuevo archivo parser.py
 
-if len(sys.argv) > 1:
-    input_file = sys.argv[1]
-   
-    # creacción del archivo de salida
+# --- ESTA ES TU PARTE DE LA PRÁCTICA 1 INTACTA ---
+def run_lexer(input_file):
+    lexer = lex.lex(module=scanner)
     base_name, _ = os.path.splitext(input_file)
-    output_file = base_name + ".token" # .token al final del archivo de salida
+    output_file = base_name + ".token"
 
     try: 
         with open(input_file, 'r', encoding="utf-8") as f_in, open(output_file, 'w', encoding="utf-8") as f_out:
@@ -17,20 +17,41 @@ if len(sys.argv) > 1:
             lexer.input(data)
         
             for tok in lexer:
-                # cálculo de columnas ya calculado en el lexer 
                 col_start = tok.column 
-            
-                # cálculo de la longitud real 
                 length = getattr(tok, 'length', tok.lexer.lexpos - tok.lexpos)
                 col_end = col_start + length
 
-                # formato de salida: { TIPO, VALOR, LÍNEA, COL-INI, COL-FIN }
                 linea_token = f"{{ {tok.type}, {tok.value}, {tok.lineno}, {col_start}, {col_end} }}\n"
-            
-                # escribir en el archivo .token
                 f_out.write(linea_token)
             
         print(f"Análisis completado. Resultados guardados en: {output_file}")
 
     except FileNotFoundError:
         print(f"Error: El archivo '{input_file}' no existe.")
+
+# --- ESTA ES LA PARTE NUEVA DE LA PRÁCTICA 2 (PARSER) ---
+def run_parser(input_file):
+    lexer = lex.lex(module=scanner)
+    parser = yacc.yacc(module=grammar)
+    
+    try:
+        with open(input_file, 'r', encoding="utf-8") as f_in:
+            data = f_in.read()
+            print("Generating LALR tables...")
+            parser.parse(data, lexer=lexer)
+    except FileNotFoundError:
+        print(f"Error: El archivo '{input_file}' no existe.")
+
+# --- ESTO DECIDE QUÉ HACER SEGÚN LO QUE ESCRIBA EL PROFESOR EN LA TERMINAL ---
+if __name__ == '__main__':
+    # Si el profe escribe: python main.py -token archivo.lava
+    if len(sys.argv) == 3 and sys.argv[1] == "-token":
+        run_lexer(sys.argv[2])
+    # Si el profe escribe: python main.py archivo.lava
+    elif len(sys.argv) == 2:
+        run_parser(sys.argv[1])
+    # Si el profe lo escribe mal
+    else:
+        print("Uso correcto:")
+        print("  Para análisis sintáctico (Parser): python main.py <fichero.lava>")
+        print("  Para generar tokens (Lexer):       python main.py -token <fichero.lava>")
