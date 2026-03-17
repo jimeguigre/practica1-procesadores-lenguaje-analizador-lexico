@@ -1,0 +1,9 @@
+// estructura de control mal cerrada
+if (a > b) {
+    print(a) // Falta punto y coma
+}
+
+// estructura de control mal definida 
+if (a > b){
+    print(a);
+

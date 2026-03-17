@@ -37,7 +37,7 @@ def run_parser(input_file):
     try:
         with open(input_file, 'r', encoding="utf-8") as f_in:
             data = f_in.read()
-            print("Generating LALR tables...")
+            print("Generando tablas LALR...")
             parser.parse(data, lexer=lexer)
     except FileNotFoundError:
         print(f"Error: El archivo '{input_file}' no existe.")

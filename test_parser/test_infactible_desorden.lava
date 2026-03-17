@@ -1,0 +1,12 @@
+// PRUEBA DE DESORDEN
+x = 10; // no genera fallo, es competencia del semántico
+
+else {  // ERROR: Else sin If
+    print(x);
+}
+
+void funcion() {
+    int a;
+    } // Llave de cierre prematura
+    a = 5; // ERROR: Sentencia fuera de cualquier bloque
+}
