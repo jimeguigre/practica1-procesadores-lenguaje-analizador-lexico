@@ -1,0 +1,9 @@
+// record mal definido
+record Fallo(int x,); // Coma huérfana
+record (int a, int b); 
+record Cosa();
+
+// acceso mal formado
+p. = 5;       // Falta el ID después del punto
+p.5 = 10;     // Un número no puede ser un campo
+.x = 20;      // Falta la variable base

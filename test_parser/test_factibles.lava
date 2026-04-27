@@ -1,0 +1,43 @@
+// CASOS QUE DEBEN ACEPTARSE (Sintaxis Correcta)
+
+// 1. Declaraciones múltiples y mezcladas
+int a = 10, b, c = 0xAF; 
+float f = 1.2e-5, g = 500.0;
+boolean cond = true, flag = false;
+int j = 13;
+
+// 2. Operaciones con precedencia (Jerarquía)
+int resultado = a + b * (c - 10) / 2;
+
+// 3. Estructuras de control anidadas
+void test_logic(int x) {
+    if (x >= 0 && x <= 100 || !cond) {
+        print(x);
+    } else {
+        do {
+            x = x - 1;
+        } while (x > 0);
+    }
+}
+
+// 4. Records y acceso a memoria
+record Point(int x, int y);
+void mover() {
+    Point p = new Point(10, 20);
+    p.x = p.x + 1;
+}
+// Records anidados (Punto dentro de Círculo)
+record Circle(Point centro, int radio);
+void test2() {
+    Circle c = new Circle(new Point(0,0), 10);
+    c.centro.x = 5;          // Acceso doble (punteros/referencias)
+}
+// 5. Retornos y funciones void
+void nada() { return; }
+int suma(int a, int b) { return a + b; }
+
+// punto y coma sobrantes 
+;;;;;;
+
+
+; 

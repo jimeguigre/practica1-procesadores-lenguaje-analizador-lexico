@@ -1,0 +1,6 @@
+// ERROR SINTÁCTICO: asignaciones incompletas e incorrectas
+int mal_valor1 = ; 
+char mal_valor2 = ; 
+int mal_valor3 = 'e'; 
+int mal_valor4 = 2.45; 
+char mal_valor5 = 2;

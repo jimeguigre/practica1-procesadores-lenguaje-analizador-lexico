@@ -1,0 +1,14 @@
+// mal uso de operadores
+int error_operacion = 5 a; 
+int operacion = 4 +; 
+int e3 = 4 * / 2;
+// mal uso de paréntesis 
+int e4 = (5 + 3;
+int e5 = 5 + 8); 
+int e6 = (); 
+// ambigüedad de signos 
+int e7 = 5 -- 3; // debería ser exitoso (5 + 3 = 8)
+int e8 = --5; 
+// operadores lógicos
+int e9 = 8 AND 4; 
+
