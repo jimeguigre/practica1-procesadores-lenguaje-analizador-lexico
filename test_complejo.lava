@@ -1,0 +1,193 @@
+// ============================================================
+//  TEST COMPLETO - LAVA COMPILER
+//  Cubre: léxico, sintáctico, semántico y recuperación
+// ============================================================
+
+
+// ── 1. DECLARACIONES BÁSICAS (sin errores) ──────────────────
+int    a = 10;
+float  b = 3.14;
+char   c = 'z';
+boolean flag = true;
+
+// Multideclaración sin asignación
+int x, y;
+x = 5;
+y = x * x - x;
+
+
+// ── 2. LITERALES EN TODOS LOS FORMATOS ──────────────────────
+int dec  = 495;
+int bin  = 0b111101111;
+int oct  = 0757;
+int hex  = 0x1EF;
+float dot = 100.001;
+float sci = 9.87e-2;
+float sci2 = 5e5;
+
+
+// ── 3. OPERACIONES ARITMÉTICAS VÁLIDAS ──────────────────────
+int    sum_int   = a + x;           // int + int -> int
+float  sum_float = b + 2.0;         // float + float -> float
+int    sum_char  = 1 + c;           // int + char -> int  (conversión automática)
+char   sum_cc    = 'a' + 'b';       // char + char -> char
+float  widening  = a + b;           // int + float -> float (conversión automática)
+int    mul_int   = a * x;
+float  div_float = b / 2.0;
+
+
+// ── 4. OPERACIONES BOOLEANAS VÁLIDAS ────────────────────────
+boolean b_and  = true && false;
+boolean b_or   = flag || false;
+boolean b_not  = !flag;
+boolean cmp_gt = a > x;
+boolean cmp_eq = a == 10;
+boolean cmp_ch = 'a' < 'z';        // char < char -> boolean
+boolean cmp_wid = a == b;          // int == float -> boolean (conversión)
+
+
+// ── 5. REGISTROS ─────────────────────────────────────────────
+record Vector(float vx, float vy);
+record Planet(Vector position, Vector velocity, float mass, boolean active);
+
+Vector v1 = new Vector(1.0, 2.0);
+Planet earth = new Planet(
+    new Vector(0.0, 0.0),
+    new Vector(1.0, 2.0),
+    5.9e24,
+    true
+);
+
+// Acceso a propiedades
+float ex = earth.position.vx;
+earth.velocity.vx = 3.0;
+
+
+// ── 6. FUNCIONES Y SOBRECARGA ────────────────────────────────
+int square(int n) {
+    return n * n;
+}
+
+float square(float n) {
+    return n * n;
+}
+
+float calcularPromedio(float p1, float p2) {
+    float s = p1 + p2;
+    return s / 2.0;
+}
+
+void printFlag(boolean f) {
+    print(f);
+}
+
+int r1 = square(4);          // llama a square(int)
+float r2 = square(2.5);      // llama a square(float)
+float r3 = square(a);        // int -> compatible con square(int)
+float avg = calcularPromedio(10.0, 20.0);
+printFlag(flag);
+
+
+// ── 7. CONTROL DE FLUJO ──────────────────────────────────────
+if (flag) {
+    x = x + 1;
+} else {
+    x = 0;
+}
+
+int counter = 0;
+while (counter < 5) {
+    counter = counter + 1;
+    print(counter);
+}
+
+int i = 0;
+do {
+    i = i + 1;
+    print(i);
+} while (i < 3);
+
+// Break dentro de while
+int v = 0;
+while (v < 10) {
+    if (v >= 5) {
+        break;
+    }
+    v = v + 1;
+}
+
+
+// ── 8. COMENTARIOS (multi-línea e inline) ────────────────────
+/*
+  Este bloque multi-línea
+  debe ser ignorado completamente
+  por el lexer.
+*/
+int comentado = 42; // esto sí se procesa
+
+
+// ============================================================
+//  SECCIÓN DE ERRORES — cada bloque prueba un error distinto
+//  La recuperación permite que el análisis continúe
+// ============================================================
+
+
+// ── E1. ERROR LÉXICO: carácter no reconocido ─────────────────
+// El '@' no pertenece al alfabeto de Lava.
+// El lexer lo salta y continúa (modo pánico léxico).
+int lex_err = 1 @ 2;
+
+
+// ── E2. ERROR SINTÁCTICO: punto y coma faltante ──────────────
+// El parser recupera en el siguiente ';'
+int syn_err = 10
+int syn_ok = 20;
+
+
+// ── E3. ERROR SEMÁNTICO: re-declaración de variable ──────────
+int a;          // 'a' ya fue declarada arriba
+
+
+// ── E4. ERROR SEMÁNTICO: variable no declarada ───────────────
+z = 99;         // 'z' nunca se declaró
+
+
+// ── E5. ERROR SEMÁNTICO: boolean no convertible ──────────────
+float bad_assign = true;    // boolean -> float no permitido
+
+
+// ── E6. ERROR SEMÁNTICO: condición de if no booleana ─────────
+if (a) {                    // int no es boolean
+    x = 1;
+}
+
+
+// ── E7. ERROR SEMÁNTICO: condición de while no booleana ──────
+while (b) {                 // float no es boolean
+    counter = counter + 1;
+}
+
+
+// ── E8. ERROR SEMÁNTICO: operación && con no-booleanos ───────
+boolean bad_and = 5 && true;    // int && boolean -> error
+
+
+// ── E9. ERROR SEMÁNTICO: operación aritmética con boolean ────
+int bad_mul = a * flag;         // int * boolean -> error
+
+
+// ── E10. ERROR SEMÁNTICO: función no declarada ───────────────
+int bad_call = noExiste(1, 2);
+
+
+// ── E11. ERROR SEMÁNTICO: firma de función incompatible ──────
+// square existe para (int) y (float), no para (boolean)
+int bad_sig = square(true);
+
+
+// ── E12. ERROR SEMÁNTICO: registro re-declarado ──────────────
+record Vector(int a, int b);    // Vector ya existe
+
+
+// ── E13. ERROR SEMÁNTICO: asignación tipo incompatible ───────
+flag = 42;      // int -> boolean no permitido
