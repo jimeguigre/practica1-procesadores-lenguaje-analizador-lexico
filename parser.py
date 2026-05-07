@@ -315,6 +315,14 @@ def p_arg_list_items(p):
     else:
         p[0] = [p[1]]
 
+def p_arg_list_error(p):
+    '''arg_list_items : error'''
+    syntax_errors.append(
+        f"[ERROR SINTÁCTICO] Argumento inválido en llamada "
+        f"a función, línea {p.lineno(1)}"
+    )
+    p[0] = []
+
 # instanciación
 def p_instantiation(p):
     '''instantiation : NEW ID L_PAREN arg_list R_PAREN'''
