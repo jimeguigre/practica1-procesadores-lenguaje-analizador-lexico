@@ -1,9 +1,7 @@
 import ply.yacc as yacc
 from lexer import tokens
 
-# ═══════════════════════════════════════════════
 # TABLAS GLOBALES Y ESTADO
-# ═══════════════════════════════════════════════
 symbol_table = {}
 records_table = {}
 functions_table = {}
@@ -44,9 +42,7 @@ OP_TO_INSTR = {
     '==': 'EQ', '&&': 'AND', '||': 'OR',
 }
 
-# ═══════════════════════════════════════════════
 # PRECEDENCIA
-# ═══════════════════════════════════════════════
 precedence = (
     ('right', 'ASIGNACION'),
     ('left', 'OR'),
@@ -59,9 +55,7 @@ precedence = (
     ('left', 'PUNTO'),
 )
 
-# ═══════════════════════════════════════════════
 # GRAMÁTICA
-# ═══════════════════════════════════════════════
 
 def p_program(p):
     '''program : item_list
@@ -88,7 +82,7 @@ def p_type(p):
             | ID'''
     p[0] = p[1]
 
-# -- Registros y Funciones --
+# Registros y Funciones
 def p_record_decl(p):
     '''record_decl : RECORD ID L_PAREN param_list R_PAREN PUNTO_COMA'''
     records_table[p[2]] = p[4]
@@ -118,7 +112,7 @@ def p_param(p):
     p[0] = f"{p[2]}:{p[1]}"
     symbol_table[p[2]] = p[1]
 
-# -- Sentencias --
+# Sentencias
 def p_statement_list(p):
     '''statement_list : statement_list statement
                       | empty'''
@@ -168,7 +162,7 @@ def p_location(p):
                 | location PUNTO ID'''
     p[0] = p[1] if len(p) == 2 else f"{p[1]}.{p[3]}"
 
-# -- Expresiones --
+# Expresiones
 def p_expression_binop(p):
     '''expression : expression SUMA expression
                   | expression RESTA expression
@@ -231,7 +225,7 @@ def p_arg_list_items(p):
                       | expression'''
     p[0] = p[1] + [p[3]] if len(p) == 4 else [p[1]]
 
-# -- Control de Flujo --
+# Control de Flujo 
 
 def p_if_else_statement(p):
     '''if_statement : IF L_PAREN expression R_PAREN L_BRACKET statement_list R_BRACKET ELSE L_BRACKET statement_list R_BRACKET'''
