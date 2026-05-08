@@ -1,1 +1,4 @@
-move: [p:Point],void
+square: [n:int],int
+square: [n:float],float
+calcularPromedio: [p1:float, p2:float],float
+printFlag: [f:boolean],void

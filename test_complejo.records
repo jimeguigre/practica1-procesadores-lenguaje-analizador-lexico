@@ -1,1 +1,2 @@
-Point: [x:int, y:int]
+Vector: [a:int, b:int]
+Planet: [position:Vector, velocity:Vector, mass:float, active:boolean]
