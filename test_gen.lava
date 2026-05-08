@@ -1,0 +1,7 @@
+void main() {
+    if (a > b && c == d) { 
+        x = 1; 
+    }
+
+    y = (a + b) * (c - d);
+}
